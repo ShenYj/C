@@ -1,0 +1,127 @@
+//4.定义结构体类型、定义结构体类型变量 练习
+
+#include <stdio.h>
+
+int main(int argc, const char * argv[]) {
+    
+    
+    //定义结构体类型 1
+    
+    struct Student {
+        
+        char *name;
+        int age;
+        int number;
+        
+    };
+    
+    //定义一个Student结构体类型的变量
+    struct Student stu1;
+    
+    //定义结构体类型 2
+    struct Person {
+        
+        int age;
+        char name[20];
+        
+    } per1,per2;
+    
+    //匿名结构体的定义，和变量声明 3
+    struct {
+        
+        int age;
+        char name[20]
+        
+    } per1,per2;
+    
+    
+    return 0;
+}
+
+//5.1结构体类型变量的初始化
+
+#include <stdio.h>
+
+int main(int argc, const char * argv[]) {
+    
+    //1.先定义，后初始化 (全部初始化)
+    //定义一个struct Person类型的结构体
+    struct Person {
+        
+        int age;
+        char *name;
+        
+    };
+    
+    //定义一个struct Person类型的变量
+    struct Person p1;
+    
+    //初始化p1
+    p1 = (struct Person){24,"Ryan"};//强制类型转换
+    
+    printf("age=%d,name=%s\n",p1.age,p1.name);
+    
+    
+    //逐个成员名赋值
+    p1.name = "Mr.Zhang";
+    
+    printf("age=%d,name=%s\n",p1.age,p1.name);
+    
+    
+    //定义另一个结构体类型变量，部分初始化
+    struct Person p2;
+    
+    p2 = (struct Person){.name = "Jim"};
+    
+    printf("age=%d,name=%s\n",p2.age,p2.name);
+    
+    return 0;
+}
+
+
+//5.2结构体类型变量的初始化
+
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, const char * argv[]) {
+    
+    //1.先定义，后初始化 (全部初始化)
+    //定义一个struct Person类型的结构体
+    struct Person {
+        
+        int age;
+        char name[30];
+        
+    };
+    
+    //定义一个struct Person类型的变量
+    struct Person p1;
+    
+    strcpy( p1.name, "Ryan");
+    
+    printf("age=%d name=%s\n",p1.age,p1.name);
+    
+    return 0;
+}
+
+//5.3结构体类型变量的初始化
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, const char * argv[]) {
+    
+    //定义的同时初始化
+    struct Student {
+        
+        int age;
+        char *name;
+        
+    };
+    //定义一个结构体类型变量stu并同时初始化
+    struct Student stu = {20,"Ryan"};
+    printf("age=%d,name=%s\n",stu.age,stu.name);
+    
+    
+    return 0;
+}
