@@ -1,0 +1,66 @@
+// 10.结构体嵌套
+
+#include <stdio.h>
+
+
+//定义一个结构体类型Date
+struct Date {
+    
+    int year;
+    int month;
+    int day;
+    
+};
+
+//定义一个结构体类型人，包含成员：姓名、年龄、生日
+struct Person {
+    
+    char *name;
+    int age;
+    struct Date birthday;
+    
+};
+
+int main(int argc, const char * argv[]) {
+    
+    //定义struct Person类型的变量
+    struct Person people;
+    
+    //初始化people变量
+    people = (struct Person){"Ryan",18,{1989,5,24}};
+    
+    printf("1: name=%s age=%d birthday:%d-%d-%d \n",people.name,people.age,people.birthday.year,people.birthday.month,people.birthday.day);
+    printf("2: name=%s age=%d birthday:%d-%d-%d \n",people.name,people.age,people.birthday.year,people.birthday.month,people.birthday.day);
+    
+    
+    return 0;
+}
+
+// 11.结构体嵌套自身 （通过指针）
+
+#include <stdio.h>
+
+
+//定义一个结构体类型人，包含成员：姓名、年龄、生日
+struct Person {
+    
+    char *name;
+    int age;
+    struct Person * son;
+    
+};
+
+int main(int argc, const char * argv[]) {
+    
+    //定义struct Person类型的变量
+    struct Person people1 = {"Jim",18,NULL};
+    struct Person people2 = {"Green",50,&people1};
+    
+    //分别输出结构体变量people1和people2的成员
+    printf("people2: name=%s age=%d \n\n",people1.name,people1.age);
+    
+    printf("people1: name=%s age=%d \npeople2's son: name=%s age=%d \n",people2.name,people2.age,people2.son->name,people2.son->age);
+    
+    
+    return 0;
+}
