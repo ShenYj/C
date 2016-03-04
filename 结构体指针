@@ -1,0 +1,39 @@
+//9.结构体指针：指向结构体的指针
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+//定义一个全局结构体
+struct Student {
+    
+    int age;
+    char *name;
+    int sex;
+    
+};
+
+int main(int argc, const char * argv[]) {
+    
+    //定义一个结构体变量
+    struct Student stu1;
+    //stu1 = (struct Student){18,"Ryan",1};
+    
+    //定义一个指针指向结构体stu1，静态初始化
+    struct Student *point = &stu1; // 动态初始化 struct Student *point; point = &stu1;
+    
+    //为结构体变量初始化 1
+    stu1 = (struct Student){18,"Ryan",1};
+    printf("1: age=%d name=%s sex=%d \n",stu1.age,stu1.name,stu1.sex);
+    
+    //通过指针为结构体变量赋值 2
+    point->age = 19;
+    
+    //通过指针为结构体变量赋值 3
+    (*point).name = "Ryans";
+    
+    printf("2: age=%d name=%s sex=%d \n",stu1.age,stu1.name,stu1.sex);
+    
+    return 0;
+    
+}
