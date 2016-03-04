@@ -1,0 +1,81 @@
+// 7.结构体类型数组
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(int argc, const char * argv[]) {
+    
+    //定义结构体类型数组1
+    struct Student1 {
+        
+        int age;
+        char *name;
+        
+    } stus1[10];
+    
+    //再通过结构体重新定义一个结构体类型的新变脸
+    struct Student1 stu;
+    stu = (struct Student1){29,"Ryan"};
+    
+    printf("%d %s\n",stu.age,stu.name);
+    //定义结构体类型数组2
+    struct Student2 {
+        
+        int age;
+        char *name;
+    };
+    //先定义结构体类型，再定义结构体类型数组
+    struct Student2 stus2[10];
+    
+    return 0;
+}
+
+//8.结构体类型数组元素初始化 （1、动态初始化  2、静态初始化）
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+//定义一个全局结构体
+struct Student {
+    
+    int age;
+    char *name;
+    int sex;
+};
+
+int main(int argc, const char * argv[]) {
+    
+    
+    //1.定义一个结构体数组同时初始化 ，包含10个元素
+    struct Student stus1[5] = {{18,"Ryan",1},{19,"Green",0},{20,"Jim",0}};
+    
+    //遍历结构体数组元素
+    for (int i = 0; i<5; i++) {
+        
+        printf("stus1[%d]:age=%2d name=%s sex=%1d\n",i,stus1[i].age,stus1[i].name,stus1[i].sex);
+        
+    }//部分初始化，未初始化部分为0
+    
+    //2.1先定义一个结构体数组，后为结构体数组元素赋值
+    struct Student stus2[5];
+    
+    stus2[0] = (struct Student){17,"Lily",1};
+    stus2[1] = (struct Student){16,"Lucy",1};
+    
+    
+    //2.2为单个数组元素中的成员赋值
+    stus2[2].age = 22;
+    stus2[2].name = "locus";
+    stus2[2].sex = 1;
+    
+    for (int i = 0; i<5; i++) {
+        
+        printf("stus2[%d]:age=%2d name=%s sex=%1d\n",i,stus2[i].age,stus2[i].name,stus2[i].sex);
+        
+    }//部分初始化，未初始化部分为垃圾值
+    
+    return 0;
+}
