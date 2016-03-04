@@ -1,0 +1,23 @@
+// 6.结构体类型变量存储；对其算法（对齐模数）
+
+#include <stdio.h>
+
+int main(int argc, const char * argv[]) {
+    
+    struct Person {
+        
+        //        char a;
+        //        char c;
+        //        int age; //8字节
+        char a;
+        int age;
+        char c; //12
+        //对齐模数
+        
+    };
+    
+    struct Person p;
+    printf("%lu\n",sizeof(p));
+    
+    return 0;
+}
