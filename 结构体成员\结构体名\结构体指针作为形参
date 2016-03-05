@@ -1,0 +1,112 @@
+// 12.结构体成员作为函数参数
+//数组作为形参传递的是地址，其他成员都是值传递
+#include <stdio.h>
+
+//函数声明
+void changeAge (int age,char *name);
+
+//定义一个结构体
+struct Person {
+    
+    int age;
+    char *name;
+    
+};
+
+int main(int argc, const char * argv[]) {
+    
+    //定义一个结构体变量p1
+    struct Person p1 = {19,"Ryan"};
+    
+    //输出结构体变量p1成员
+    printf("1: age=%d name=%s \n",p1.age,p1.name);
+    
+    //调用函数
+    changeAge(p1.age,p1.name);
+    
+    
+    
+    
+    return 0;
+}
+
+//定义一个结构体成员作为形参的函数
+void changeAge (int age,char *name) {
+    
+    name="Ryans";
+    age= 18;
+    //重新输出结构体变量p1成员
+    printf("2: age=%d name=%s \n",age,name);
+    
+}
+
+// 13.结构体变量名作为函数参数
+
+#include <stdio.h>
+
+//定义一个结构体类型Person
+struct Person {
+    
+    int age;
+    char *name;
+    
+};
+
+//函数声明
+void fun (struct Person person);
+
+
+
+int main(int argc, const char * argv[]) {
+    
+    //定义一个结构体Person类型的变量p
+    struct Person p = {19,"Ryan"};
+    
+    printf("&p = %p \n",&p);
+    
+    //调用函数
+    fun(p);
+    
+    return 0;
+}
+
+//定义一个函数，形参为结构体变量
+void fun (struct Person person) {
+    
+    printf("&person = %p \n",&person);
+}
+
+// 14.结构指针作为函数的参数
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+//定义一个结构体类型
+struct Dog {
+    
+    int age;
+    char *name;
+    
+};
+//函数声明
+void showDog (struct Dog *dogP);
+
+int main(int argc, const char * argv[]) {
+    
+    //定义结构体类型变量dog
+    struct Dog dog = {3,"laifu"};
+    
+    showDog(&dog);
+    
+    
+    return 0;
+    
+}
+
+//定义一个函数，结构体类型作为形参
+void showDog (struct Dog *dogP) {
+    
+    printf("dog:age=%d name=%s\n",dogP->age,dogP->name);
+    
+}
