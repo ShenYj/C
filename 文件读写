@@ -1,0 +1,168 @@
+//1.定义一个电话记录结构体(有成员电话号码,姓名,地区).
+// 1)定义一个电话记录的数组,用户指定个数,并且依次由用户输入每一个.
+// 2)将数组写到磁盘中
+// 3)然后读出打印所有电话记录的信息
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+//函数声明
+void changeRow();
+int showInfo();
+void f_write_and_f_read();
+
+//定义并重命名一个Caller_Identification结构体类型
+typedef struct {
+    
+    long int number;
+    char name[18];
+    char area[18];
+    
+} Caller_Identification;
+
+
+int main(int argc, const char * argv[]) {
+    
+    //定义一个Caller_Identification结构体类型的指针
+    Caller_Identification *ciP = NULL;
+    
+    //定义一个变量，获取的值用来存放结构体数组变量Caller_Identification的数量
+    int counts;
+    
+    //手动分配counts个Caller_I单位的存储空间，并指向这段空间的首地址
+    ciP = calloc(counts, sizeof(Caller_Identification));
+    
+    
+    if (ciP != NULL) {
+        
+        //程序继续进行，将得到的返回值赋值给counts变量，作为结构体数组的元素个数
+        counts = showInfo();
+        
+        printf("输入完成！\n接下来请按照格式为：(每输入完一项回车确认)\nnumber\nname\narea\n录入来电记录信息！\n");
+        changeRow();
+        
+        //通过结构体数组变量指针指向的内存空间存储录入信息
+        for ( int i = 0; i<counts; i++) {
+            
+            //scanf("%11ld,%s,%s",&((ciP+i)->number),((ciP+i)->name),((ciP+i)->area));
+            scanf("%11ld",&((ciP+i)->number));
+            scanf("%s",((ciP+i)->name));
+            scanf("%s",((ciP+i)->area));
+            
+        }
+        
+        printf("=======================================\n");
+        printf("===========     恭喜，录入完成！  ========\n");
+        printf("=======================================\n");
+        printf("刚刚如露的信息如下：\n");
+        
+        //显示刚刚录入的信息
+        for (int i = 0; i<counts; i++) {
+            
+            printf(" 序号%-4d: | 手机号-%-11ld | 姓名-%-18s | 地区-%-18s |\n",i,((ciP+i)->number),((ciP+i)->name),((ciP+i)->area));
+        }
+        changeRow();
+        
+        
+        f_write_and_f_read(ciP,counts);
+        
+    } else {
+        
+        printf("程序错误！\n");
+    }
+    
+    
+    
+    
+    return 0;
+}
+
+
+
+//1、程序首界面菜单及介绍，2、返回值为所需结构体数组变量的长度
+int showInfo() {
+    
+    printf("*************************************\n");
+    printf("**********  来电记录录入系统   *********\n");
+    printf("**********                  *********\n");
+    printf("**********      1 继续       *********\n");
+    printf("**********      2 退出       *********\n");
+    printf("*************************************\n");
+    
+    //定义一个变量，用来作为选项
+    int selectNumber;
+    scanf("%d",&selectNumber);
+    
+    //定义一个变量，作为这个函数的返回值
+    int count;
+    
+    switch (selectNumber) {
+        case 1:
+            printf("请输入需要保存的来电记录个数：\n");
+            scanf("%d",&count);
+            return count;
+            break;
+        case 2:
+            printf("程序退出！\n");
+            return 0;
+        default:
+            printf("输入无效，程序退出！\n");
+            return 0;
+            break;
+    }
+    
+    
+}
+//文件写入
+void f_write_and_f_read(Caller_Identification *records,int number) {
+    
+    //定义一个文件指针
+    FILE *fp = NULL;
+    //打开文件
+    fp = fopen("/Users/shenyj/Desktop/Caller_Identification.txt", "w+");
+    
+    if (fp != NULL) {
+        
+        //文件操作：写入文件
+        for (int i = 0; i<number; i++) {
+            
+            fwrite((records+i), sizeof(Caller_Identification), number, fp);
+            
+        }
+        //指针复位
+        rewind(fp);
+        
+        //定义一个结构体类型数组，用来存放文件中的信息
+        Caller_Identification record[20];
+        
+        //读取文件信息
+        fread(&record[0], sizeof(Caller_Identification), number, fp);
+        
+        printf("读取文件信息：\n");
+        
+        //读取文件信息
+        for (int i = 0; i<number; i++) {
+            
+            printf(" 序号%-4d: | 手机号-%-11ld | 姓名-%-18s | 地区-%-18s |\n",i,record[i].number,record[i].name,record[i].area);
+            
+        }
+        changeRow();
+        
+        
+    } else {
+        //程序错误
+        printf("警告：程序错误！");
+        changeRow();
+    }
+    //关闭文件
+    fclose(fp);
+    
+}
+
+
+//换行
+void changeRow(){
+    
+    printf("\n");
+}
