@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+struct Person {
+    char *name;
+    int age;
+};
+
+void show(struct Person * p);
+
+int main () {
+    
+    struct Person person = {"Joy",18};
+    
+    printf("%p\n",&person);
+    
+    show(&person);
+    
+}
+
+void show(struct Person * p) {
+    
+    printf("----->%p\n",p);
+    
+}
+
+
+/*
+ 
+ 结构体成员变量作为参数:值传递(数组为地址传递)
+ 结构体变量名作为参数:所有成员变量都是值传递
+ 结构体指针作为参数:地址传递
+ */
